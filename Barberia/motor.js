@@ -1,0 +1,338 @@
+// ==========================================
+// BARBERÍA HADES - MOTOR DEL BARRIO
+// ==========================================
+
+// Célula: Hades
+// Negocio: Barbería
+
+// ---------- NIVEL 1 · DATOS ----------
+
+const registros = [
+    { persona: "Juan", categoria: "Corte clásico", dia: 1, valor: 15000, barbero: "Andrés", metodoPago: "Efectivo" },
+    { persona: "Carlos", categoria: "Corte degradado", dia: 1, valor: 20000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Sebastián", categoria: "Arreglo de barba", dia: 2, valor: 12000, barbero: "Mateo", metodoPago: "Transferencia" },
+    { persona: "Miguel", categoria: "Corte + barba", dia: 2, valor: 30000, barbero: "Julián", metodoPago: "Efectivo" },
+    { persona: "Andrés", categoria: "Corte clásico", dia: 3, valor: 15000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Juan", categoria: "Corte + barba", dia: 4, valor: 30000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Daniel", categoria: "Diseño de cejas", dia: 5, valor: 8000, barbero: "Andrés", metodoPago: "Transferencia" },
+    { persona: "Carlos", categoria: "Corte clásico", dia: 5, valor: 15000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Sebastián", categoria: "Corte degradado", dia: 6, valor: 20000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Felipe", categoria: "Arreglo de barba", dia: 7, valor: 12000, barbero: "Andrés", metodoPago: "Transferencia" },
+    { persona: "Miguel", categoria: "Corte + barba", dia: 1, valor: 30000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Andrés", categoria: "Corte degradado", dia: 2, valor: 20000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Juan", categoria: "Arreglo de barba", dia: 3, valor: 12000, barbero: "Andrés", metodoPago: "Transferencia" },
+    { persona: "Nicolás", categoria: "Diseño de cejas", dia: 4, valor: 8000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Carlos", categoria: "Corte + barba", dia: 5, valor: 30000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Sebastián", categoria: "Corte clásico", dia: 6, valor: 15000, barbero: "Andrés", metodoPago: "Transferencia" },
+    { persona: "Santiago", categoria: "Corte degradado", dia: 7, valor: 20000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Miguel", categoria: "Arreglo de barba", dia: 1, valor: 12000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Andrés", categoria: "Corte clásico", dia: 2, valor: 15000, barbero: "Andrés", metodoPago: "Transferencia" },
+    { persona: "Juan", categoria: "Diseño de cejas", dia: 3, valor: 8000, barbero: "Mateo", metodoPago: "Efectivo" },
+    { persona: "Juan", categoria: "Corte clásico", dia: 4, valor: 15000, barbero: "Andrés", metodoPago: "Efectivo" },
+    { persona: "Carlos", categoria: "Corte degradado", dia: 5, valor: 20000, barbero: "Julián", metodoPago: "Tarjeta" },
+    { persona: "Miguel", categoria: "Arreglo de barba", dia: 6, valor: 12000, barbero: "Mateo", metodoPago: "Transferencia" },
+    { persona: "Daniel", categoria: "Corte + barba", dia: 7, valor: 30000, barbero: "Andrés", metodoPago: "Efectivo" }
+];
+
+
+
+// ---------- NIVEL 1 · DATOS ----------
+
+function mostrarRegistro(registro) {
+    const texto = `Día ${registro.dia} | Cliente: ${registro.persona} | Servicio: ${registro.categoria} | Precio: $${registro.valor} | Barbero: ${registro.barbero} | Pago: ${registro.metodoPago}`;
+
+    return texto;
+}
+
+function listarTodo(datos) {
+    for (let i = 0; i < datos.length; i++) {
+        console.log(mostrarRegistro(datos[i]));
+    }
+}
+
+
+// ---------- NIVEL 2 · REPORTES ----------
+
+function totalGeneral(datos) {
+    let total = 0;
+
+    for (let i = 0; i < datos.length; i++) {
+        total = total + datos[i].valor;
+    }
+
+    return total;
+}
+
+function promedio(datos) {
+
+    if (datos.length === 0) {
+        return 0;
+    }
+
+    let total = totalGeneral(datos);
+
+    let resultado = total / datos.length;
+
+    return resultado;
+}
+
+function registroMayor(datos) {
+
+    if (datos.length === 0) {
+        return null;
+    }
+
+    let mayor = datos[0];
+
+    for (let i = 1; i < datos.length; i++) {
+
+        if (datos[i].valor > mayor.valor) {
+            mayor = datos[i];
+        }
+
+    }
+
+    return mayor;
+}
+
+function filtrarPorCategoria(datos, categoria) {
+
+    let resultado = [];
+
+    for (let i = 0; i < datos.length; i++) {
+
+        if (datos[i].categoria === categoria) {
+            resultado.push(datos[i]);
+
+
+        }
+
+    }
+
+    return resultado;
+}
+
+function totalesPorCategoria(datos) {
+
+    let totales = {};
+
+    for (let i = 0; i < datos.length; i++) {
+
+        let categoria = datos[i].categoria;
+
+        if (totales[categoria] === undefined) {
+
+            totales[categoria] = 0;
+
+        }
+
+        totales[categoria] = totales[categoria] + datos[i].valor;
+
+    }
+
+    return totales;
+}
+
+function personasUnicas(datos) {
+
+    let clientes = new Set();
+
+    for (let i = 0; i < datos.length; i++) {
+
+        clientes.add(datos[i].persona);
+
+    }
+
+    return clientes.size;
+}
+
+function recurrentesLento(datos) {
+
+    let recurrentes = [];
+
+    for (let i = 0; i < datos.length; i++) {
+
+        let contador = 0;
+
+        for (let j = 0; j < datos.length; j++) {
+
+            if (datos[i].persona === datos[j].persona) {
+                contador++;
+            }
+
+        }
+
+        if (contador > 1) {
+
+            let repetido = false;
+
+            for (let k = 0; k < recurrentes.length; k++) {
+
+                if (recurrentes[k] === datos[i].persona) {
+                    repetido = true;
+                }
+
+            }
+
+            if (repetido === false) {
+                recurrentes.push(datos[i].persona);
+            }
+
+        }
+
+    }
+
+    return recurrentes;
+}
+
+function recurrentesRapido(datos) {
+
+    let visitas = new Map();
+
+    for (let i = 0; i < datos.length; i++) {
+
+        let cliente = datos[i].persona;
+
+        if (visitas.has(cliente)) {
+
+            visitas.set(cliente, visitas.get(cliente) + 1);
+
+        } else {
+
+            visitas.set(cliente, 1);
+
+        }
+
+    }
+
+    let recurrentes = [];
+
+    for (let [cliente, cantidad] of visitas) {
+
+        if (cantidad > 1) {
+            recurrentes.push(cliente);
+        }
+
+    }
+
+    return recurrentes;
+}
+
+function categoriaEstrella(datos) {
+
+let categorias = new Map();
+
+for (let i = 0; i < datos.length; i++) {
+
+    let categoria = datos[i].categoria;
+
+    if (categorias.has(categoria)) {
+
+        categorias.set(categoria, categorias.get(categoria) + 1);
+
+    } else {
+
+        categorias.set(categoria, 1);
+
+    }
+
+}
+
+let mayorCantidad = 0;
+let categoriaGanadora = null;
+
+for (let [categoria, cantidad] of categorias) {
+
+    if (cantidad > mayorCantidad) {
+
+        mayorCantidad = cantidad;
+        categoriaGanadora = categoria;
+
+    }
+
+}
+
+return categoriaGanadora;
+
+
+}
+
+// ---------- PAR QUE SUMA ----------
+
+function parQueSuma(datos, objetivo) {
+
+for (let i = 0; i < datos.length; i++) {
+
+    for (let j = i + 1; j < datos.length; j++) {
+
+        if (datos[i].valor + datos[j].valor === objetivo) {
+
+            return [datos[i], datos[j]];
+
+        }
+
+    }
+
+}
+
+return null;
+
+
+}
+
+// ---------- NIVEL 4 · COLA ----------
+
+const colaDeAtencion = [];
+
+
+
+
+// ---------- ZONA DE PRUEBAS ----------
+
+listarTodo(registros);
+
+console.log("Total de registros:", registros.length);
+
+console.log("Ingresos totales:", totalGeneral(registros));
+
+console.log("Prueba con arreglo vacío:", totalGeneral([]));
+
+console.log("Promedio por servicio:", promedio(registros));
+
+console.log("Promedio con arreglo vacío:", promedio([]));
+
+console.log("Servicio más costoso:", registroMayor(registros));
+
+console.log("Prueba con arreglo vacío:", registroMayor([]));
+
+console.log("Servicios de corte clásico:",
+    filtrarPorCategoria(registros, "Corte clásico"));
+
+console.log("Prueba con arreglo vacío:",
+    filtrarPorCategoria([], "Corte clásico"));
+
+console.log("Totales por categoría:", totalesPorCategoria(registros));
+
+console.log("Prueba con arreglo vacío:", totalesPorCategoria([]));
+
+console.log("Clientes únicos:", personasUnicas(registros));
+
+console.log("Clientes únicos con arreglo vacío:", personasUnicas([]));
+
+console.log("Clientes recurrentes:", recurrentesLento(registros));
+
+console.log("Recurrentes con arreglo vacío:", recurrentesLento([]));
+
+console.log("Clientes recurrentes rápidos:", recurrentesRapido(registros));
+
+console.log("Recurrentes rápidos con arreglo vacío:", recurrentesRapido([]));
+
+console.log("Categoría estrella:", categoriaEstrella(registros));
+
+console.log("Categoría estrella con arreglo vacío:", categoriaEstrella([]));
+
+console.log("Pareja que suma 45000:", parQueSuma(registros, 45000));
+
+console.log("Prueba con arreglo vacío:", parQueSuma([], 45000));
+
+

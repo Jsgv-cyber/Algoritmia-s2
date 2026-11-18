@@ -1,4 +1,4 @@
-const ventas =require ("/.datos");
+const ventas =require ("./datos");
 console.log("Registros:", ventas.length);
 console.log("Primero", ventas[0]);
 console.log("Ultimo", ventas[ventas.length - 1]);
