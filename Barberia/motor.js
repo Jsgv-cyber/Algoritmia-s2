@@ -284,8 +284,18 @@ return null;
 
 const colaDeAtencion = [];
 
+function llegar(persona) {
+    colaDeAtencion.push(persona);
+    return persona;
+}
 
+function atender() {
+    if (colaDeAtencion.length === 0) {
+        return "No hay clientes en espera";
+    }
 
+    return colaDeAtencion.shift();
+}
 
 // ---------- ZONA DE PRUEBAS ----------
 
@@ -335,4 +345,20 @@ console.log("Pareja que suma 45000:", parQueSuma(registros, 45000));
 
 console.log("Prueba con arreglo vacío:", parQueSuma([], 45000));
 
+console.log("Atender con la fila vacía:", atender());
+
+llegar("Juan");
+llegar("Carlos");
+llegar("Sebastian");
+
+console.log("Cola después de llegar:", colaDeAtencion);
+
+console.log("Primer cliente atendido:", atender());
+console.log("Segundo cliente atendido:", atender());
+
+console.log("Cola después de atender:", colaDeAtencion);
+
+console.log("Último cliente atendido:", atender());
+
+console.log("Atender nuevamente con la fila vacía:", atender());
 
