@@ -280,7 +280,7 @@ return null;
 
 }
 
-// ---------- NIVEL 4 · COLA ----------
+// ---------- NIVEL 4 · COLA Y PILA ----------
 
 const colaDeAtencion = [];
 
@@ -296,6 +296,41 @@ function atender() {
 
     return colaDeAtencion.shift();
 }
+
+// ---------- PILA ----------
+
+const historial = [];
+
+function agregarRegistro(datos, registro) {
+
+    datos.push(registro);
+
+    historial.push(registro);
+
+    return registro;
+}
+
+function deshacer(datos) {
+
+    if (historial.length === 0) {
+        return null;
+    }
+
+    let registroEliminado = historial.pop();
+
+    for (let i = datos.length - 1; i >= 0; i--) {
+
+        if (datos[i] === registroEliminado) {
+            datos.splice(i, 1);
+            break;
+        }
+
+    }
+
+    return registroEliminado;
+}
+
+
 
 // ---------- ZONA DE PRUEBAS ----------
 
@@ -362,3 +397,30 @@ console.log("Último cliente atendido:", atender());
 
 console.log("Atender nuevamente con la fila vacía:", atender());
 
+// ---------- PRUEBAS NIVEL 4 · PILA ----------
+
+console.log("\n===== PRUEBAS DE LA PILA =====");
+
+let nuevoServicio = {
+    persona: "David",
+    categoria: "Corte clásico",
+    dia: 7,
+    valor: 15000,
+    barbero: "Andrés",
+    metodoPago: "Efectivo"
+};
+
+console.log("Servicio agregado:",
+    agregarRegistro(registros, nuevoServicio));
+
+console.log("Total después de agregar:",
+    registros.length);
+
+console.log("Servicio deshecho:",
+    deshacer(registros));
+
+console.log("Total después de deshacer:",
+    registros.length);
+
+console.log("Intentar deshacer nuevamente:",
+    deshacer(registros));
