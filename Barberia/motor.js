@@ -330,6 +330,69 @@ function deshacer(datos) {
     return registroEliminado;
 }
 
+// ---------- NIVEL 5 · CONTADOR DE PASOS ----------
+
+function recurrentesLentoConPasos(datos) {
+    let recurrentes = [];
+    let pasos = 0;
+
+    for (let i = 0; i < datos.length; i++) {
+        pasos++; // Iteración del bucle externo (i)
+        let contador = 0;
+
+        for (let j = 0; j < datos.length; j++) {
+            pasos++; // Comparación dentro del bucle interno (j)
+            if (datos[i].persona === datos[j].persona) {
+                contador++;
+            }
+        }
+
+        if (contador > 1) {
+            let repetido = false;
+
+            for (let k = 0; k < recurrentes.length; k++) {
+                pasos++; // Bucle de verificación de repetidos (k)
+                if (recurrentes[k] === datos[i].persona) {
+                    repetido = true;
+                }
+            }
+
+            if (repetido === false) {
+                recurrentes.push(datos[i].persona);
+            }
+        }
+    }
+
+    return { resultado: recurrentes, pasos };
+}
+
+function recurrentesRapidoConPasos(datos) {
+    let visitas = new Map();
+    let pasos = 0;
+
+    for (let i = 0; i < datos.length; i++) {
+        pasos++; // Recorrido sobre los registros (i)
+        let cliente = datos[i].persona;
+
+        if (visitas.has(cliente)) {
+            visitas.set(cliente, visitas.get(cliente) + 1);
+        } else {
+            visitas.set(cliente, 1);
+        }
+    }
+
+    let recurrentes = [];
+
+    for (let [cliente, cantidad] of visitas) {
+        pasos++; // Recorrido sobre las entradas del Map
+        if (cantidad > 1) {
+            recurrentes.push(cliente);
+        }
+    }
+
+    return { resultado: recurrentes, pasos };
+}
+
 
 
 // ---------- ZONA DE PRUEBAS ----------
@@ -424,3 +487,14 @@ console.log("Total después de deshacer:",
 
 console.log("Intentar deshacer nuevamente:",
     deshacer(registros));
+
+// ---------- PRUEBAS NIVEL 5 · COMPARACIÓN DE PASOS ----------
+
+console.log("\n===== PRUEBAS NIVEL 5 · COSTOS =====");
+
+const pruebaLento = recurrentesLentoConPasos(registros);
+const pruebaRapido = recurrentesRapidoConPasos(registros);
+
+console.log("Recurrentes (lento) y pasos:", pruebaLento);
+console.log("Recurrentes (rápido) y pasos:", pruebaRapido);
+console.log("Diferencia de pasos (Lento - Rápido):", pruebaLento.pasos - pruebaRapido.pasos);
