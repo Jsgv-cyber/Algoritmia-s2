@@ -133,6 +133,59 @@ class ListaEnlazada {
 
         return null;
     }
+
+    // MiniReto 11: tamaño recursivo mediante función auxiliar sobre nodo
+    tamanioRecursivo() {
+        function contar(nodo) {
+            if (nodo === null) {
+                return 0;
+            }
+            return 1 + contar(nodo.siguiente);
+        }
+
+        return contar(this.cabeza);
+    }
+
+    // MiniReto 11: costo total recursivo mediante función auxiliar sobre nodo
+    costoTotalRecursivo() {
+        function sumar(nodo) {
+            if (nodo === null) {
+                return 0;
+            }
+            const costoActual = typeof nodo.dato?.costo === "number" ? nodo.dato.costo : 0;
+            return costoActual + sumar(nodo.siguiente);
+        }
+
+        return sumar(this.cabeza);
+    }
+
+    // MiniReto 11: búsqueda recursiva mediante función auxiliar sobre nodo
+    buscarRecursivo(condicion) {
+        function buscarEnNodo(nodo) {
+            if (nodo === null) {
+                return null;
+            }
+            if (condicion(nodo.dato)) {
+                return nodo.dato;
+            }
+            return buscarEnNodo(nodo.siguiente);
+        }
+
+        return buscarEnNodo(this.cabeza);
+    }
+
+    // MiniReto 11: imprimir de más reciente a más antigua usando la pila de llamadas
+    imprimirAlReves() {
+        function recorrerInverso(nodo) {
+            if (nodo === null) {
+                return;
+            }
+            recorrerInverso(nodo.siguiente);
+            console.log(nodo.dato);
+        }
+
+        recorrerInverso(this.cabeza);
+    }
 }
 
 module.exports = ListaEnlazada;
