@@ -1,4 +1,4 @@
-const ListaEnlazada = require("../src/ListaEnlazada");
+const ListaEnlazada = require("../src/estructuras/ListaEnlazada");
 
 function estadoLista(lista, etiqueta) {
     console.log(`\n--- ${etiqueta} ---`);

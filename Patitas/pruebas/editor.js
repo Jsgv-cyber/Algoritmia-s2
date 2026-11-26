@@ -1,5 +1,5 @@
 
-const Editor = require("../src/Editor");
+const Editor = require("../src/dominio/Editor");
 
 const editor = new Editor();
 

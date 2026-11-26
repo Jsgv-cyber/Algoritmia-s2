@@ -208,7 +208,7 @@ function serviciosEnRango(categoria, min, max) {
 
         if (Array.isArray(actual.servicios)) {
             for (const servicio of actual.servicios) {
-                if (servicio.precio >= min && servicio.precio <= max) {
+                if (servicio.precio >= min && servicio.precio < max) {
                     resultados.push(servicio);
                 }
             }

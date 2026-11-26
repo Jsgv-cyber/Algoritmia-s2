@@ -1,4 +1,4 @@
-const ListaEnlazada = require("./ListaEnlazada");
+const ListaEnlazada = require("../estructuras/ListaEnlazada");
 
 class RegistroClinico {
     constructor() {
@@ -9,6 +9,7 @@ class RegistroClinico {
         if (!this.historiales.has(mascota)) {
             this.historiales.set(mascota, new ListaEnlazada());
         }
+
         const historial = this.historiales.get(mascota);
         historial.agregarAlFinal(atencion);
     }

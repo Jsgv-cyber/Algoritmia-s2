@@ -1,5 +1,5 @@
 
-const Cola = require("../src/Cola");
+const Cola = require("../src/estructuras/Cola");
 
 const cola = new Cola();
 

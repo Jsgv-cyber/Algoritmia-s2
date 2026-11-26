@@ -1,5 +1,5 @@
 
-const Pila = require("./Pila");
+const Pila = require("../estructuras/Pila");
 const RegistroClinico = require("./RegistroClinico");
 
 class Editor {

@@ -1,4 +1,4 @@
-const Recepcion = require("../src/Recepcion");
+const Recepcion = require("../src/dominio/Recepcion");
 
 const recepcion = new Recepcion();
 

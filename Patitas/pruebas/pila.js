@@ -1,4 +1,4 @@
-const Pila = require("../src/Pila");
+const Pila = require("../src/estructuras/Pila");
 
 const pila = new Pila();
 
