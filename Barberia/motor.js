@@ -133,6 +133,8 @@ function totalesPorCategoria(datos) {
     return totales;
 }
 
+// ---------- NIVEL 3 · set y map ----------
+
 function personasUnicas(datos) {
 
     let clientes = new Set();
