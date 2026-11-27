@@ -1,25 +1,30 @@
 # 📚 Algoritmia — Semana 2 (`Algoritmia-s2`)
 
-Repositorio de ejercicios y proyectos prácticos desarrollados en **JavaScript (Node.js)**, enfocados en manipulación de arreglos y objetos, estructuras de datos (`Set`, `Map`, colas FIFO y pilas LIFO), modularización y análisis de complejidad algorítmica (**Big O**).
+Repositorio de ejercicios y proyectos prácticos desarrollados en **JavaScript (Node.js)**, enfocados en manipulación de arreglos y objetos, estructuras de datos (`Set`, `Map`, listas enlazadas, colas FIFO, pilas LIFO), recursividad, modularización y análisis de complejidad algorítmica (**Big O**).
 
 ## 🗂️ Estructura del repositorio
 
 ```text
 Algoritmia-s2/
-├── barberia/               # Proyecto 1: Barbería Hades - Motor del Barrio
+├── barberia/                  # Proyecto 1: Barbería Hades - Motor del Barrio
 │   └── motor.js
-├── src/                    # Proyecto 2: Café Origen - Analítica de Ventas
-│   ├── datos.js
-│   ├── explorar.js
-│   ├── analitica.js
-│   ├── reporte.js
-│   └── verificar.js
-└── README.md               # Documentación general del repositorio
+├── cafe-origen-analitica/     # Proyecto 2: Café Origen - Analítica de Ventas (ver su propio README.md)
+│   └── ...
+├── Patitas/                   # Proyecto 3: Motor Clínico Patitas v1.0 (ver su propio README.md)
+│   └── ...
+└── README.md                  # Documentación general del repositorio
+
 ```
+
+## 📦 Proyectos incluidos en este repositorio
+
+* **`barberia/` — Barbería Hades - Motor del Barrio:** Proyecto principal documentado en este archivo; implementa reportes estadísticos, consultas con `Set` y `Map`, simulación de fila FIFO y deshacer LIFO, y medición de pasos Big O.
+* **`cafe-origen-analitica/` — Café Origen - Analítica de Ventas:** Módulo independiente de análisis comercial, normalización de datos y generación de reportes. Consulta `cafe-origen-analitica/README.md` para ver sus módulos e instrucciones de ejecución.
+* **`Patitas/` — Motor Clínico Patitas (v1.0):** Sistema de gestión clínica veterinaria construido desde cero con listas enlazadas, colas de prioridad, pilas de deshacer/rehacer y catálogo jerárquico recursivo. Consulta `Patitas/README.md` para ver su arquitectura, demostración y pruebas.
 
 ---
 
-# 1. 💈 Barbería Hades — Motor del Barrio (`barberia/`)
+# 💈 Barbería Hades — Motor del Barrio (`barberia/`)
 
 * **Célula:** Hades
 * **Negocio:** Barbería
@@ -35,7 +40,7 @@ Algoritmia-s2/
 
 ## 📋 Descripción del proyecto
 
-`motor.js` implementa el sistema de gestión y análisis de datos para la **Barbería Hades**, estructurado por niveles de complejidad algorítmica y estructuras de datos en JavaScript:
+`barberia/motor.js` implementa el sistema de gestión y análisis de datos para la **Barbería Hades**, estructurado por niveles de complejidad algorítmica y estructuras de datos en JavaScript:
 
 1. **Nivel 1 · Datos:** Base de 24 registros de servicios realizados (cliente, categoría, día, valor, barbero y método de pago) junto con funciones de formateo y listado (`mostrarRegistro`, `listarTodo`).
 2. **Nivel 2 · Reportes:** Cálculos estadísticos y filtros sobre los registros (`totalGeneral`, `promedio`, `registroMayor`, `filtrarPorCategoria`, `totalesPorCategoria`).
@@ -50,6 +55,7 @@ Algoritmia-s2/
 
 ```bash
 node barberia/motor.js
+
 ```
 
 *(Si ya estás dentro de la carpeta `barberia/`, ejecuta `node motor.js`).*
@@ -61,7 +67,7 @@ Al ejecutarse, la consola mostrará el listado de servicios, los reportes con ca
 Sea $n$ la cantidad de registros en el arreglo de entrada (`datos.length`):
 
 | Función | Nivel | Complejidad (Big O) | Justificación |
-| :--- | :---: | :---: | :--- |
+| --- | --- | --- | --- |
 | `totalGeneral(datos)` | Nivel 2 | $O(n)$ | Recorre el arreglo una sola vez mediante un ciclo `for` sumando la propiedad `valor` de cada registro. |
 | `promedio(datos)` | Nivel 2 | $O(n)$ | Llama a `totalGeneral(datos)`, cuyo costo es $O(n)$, y luego ejecuta una división aritmética en tiempo constante $O(1)$. |
 | `registroMayor(datos)` | Nivel 2 | $O(n)$ | Realiza una única pasada lineal sobre `datos` comparando el `valor` de cada elemento contra el máximo actual. |
@@ -78,7 +84,7 @@ Sea $n$ la cantidad de registros en el arreglo de entrada (`datos.length`):
 Al ejecutar ambas versiones instrumentadas con contador sobre los **24 registros** de `motor.js`, ambas obtienen exactamente el mismo resultado (`['Juan', 'Carlos', 'Sebastián', 'Miguel', 'Andrés', 'Daniel']`), pero con una diferencia significativa en operaciones:
 
 | Versión | Complejidad | Pasos ejecutados ($n = 24$) |
-| :--- | :---: | :---: |
+| --- | --- | --- |
 | `recurrentesLentoConPasos(registros)` | $O(n^2)$ | **704 pasos** |
 | `recurrentesRapidoConPasos(registros)` | $O(n)$ | **33 pasos** |
 | **Diferencia** | — | **671 pasos menos (~95.3 % de reducción)** |
@@ -86,44 +92,3 @@ Al ejecutar ambas versiones instrumentadas con contador sobre los **24 registros
 ### Conclusión
 
 El uso de `Map` en `recurrentesRapido` evita las búsquedas repetidas mediante bucles anidados, pasando de un crecimiento cuadrático $O(n^2)$ a uno lineal $O(n)$, lo que se traduce en una mejora drástica de rendimiento conforme aumenta el volumen de registros de la barbería.
-
----
-
-# 2. ☕ Café Origen — Analítica de Ventas (`src/`)
-
-* **Autor:** Juan Sebastian Grisales Villa
-* **Negocio:** Tienda de café de especialidad y accesorios (**Café Origen**)
-* **Carpeta:** `src/`
-
-## 📋 Descripción de los módulos
-
-Este proyecto está modularizado en cinco archivos usando CommonJS (`require` / `module.exports`) para separar los datos, la exploración, la lógica de negocio, la presentación de reportes y las pruebas:
-
-* **`src/datos.js`:** Contiene el arreglo base de 12 registros de ventas (`id`, `fecha`, `cliente`, `producto`, `ciudad`, `cantidad`, `precio`), contemplando casos reales como variaciones de mayúsculas/minúsculas en ciudades (`"Medellín"` y `"medellín"`) y registros con `cantidad: 0`.
-* **`src/explorar.js`:** Script de inspección inicial del dataset. Muestra cantidad de registros, acceso por índices (incluyendo posiciones fuera de rango), tablas con `console.table()`, listado de ciudades y clientes, filtrado de ventas sin unidades y agregación de un nuevo registro mediante `.push()`.
-* **`src/analitica.js`:** Módulo principal con las funciones de cálculo y transformación:
-  * `totalVendido(ventas)`: Calcula el ingreso total acumulado (`cantidad * precio`).
-  * `unidadesVendidas(ventas)`: Suma el total de unidades vendidas.
-  * `ventaMayor(ventas)`: Identifica la venta de mayor monto económico.
-  * `normalizarCiudad(texto)`: Estandariza nombres de ciudad eliminando espacios y capitalizando la primera letra.
-  * `ventasPorCiudad(ventas)`: Agrupa y suma ingresos por ciudad normalizada.
-  * `unidadesPorProducto(ventas)`: Agrupa el total de unidades vendidas por producto.
-  * `ticketPromedio(ventas)`: Calcula el valor promedio por venta efectiva (`cantidad > 0`).
-  * `topProductosPorValor(ventas)`: Ordena los productos por ingresos generados y retorna el **Top 3**.
-* **`src/reporte.js`:** Genera el reporte ejecutivo en consola (`CAFÉ ORIGEN - REPORTE V0.1`) formateando los valores monetarios en pesos colombianos (`es-CO`), desglosando ventas por ciudad, Top 3 de productos y un `reporteDiario(ventas, fecha)` por fecha específica.
-* **`src/verificar.js`:** Banco de pruebas funcionales que valida los cálculos de `analitica.js` bajo tres escenarios: dataset completo, un solo registro (`[ventas[0]]`) y arreglo vacío (`[]`).
-
-## ▶️ Instrucciones de ejecución
-
-Desde la raíz del repositorio (`Algoritmia-s2`), puedes ejecutar cada script de `src/` de forma independiente con Node.js:
-
-```bash
-# 1. Explorar el dataset de ventas
-node src/explorar.js
-
-# 2. Generar el reporte formateado en consola
-node src/reporte.js
-
-# 3. Ejecutar las pruebas de verificación y casos borde
-node src/verificar.js
-```
